@@ -18,18 +18,7 @@
         };
         request.onsuccess = function (event) {
             db = event.target.result;
-
-            //Load the data if available
-            var customers = [];
-
-            var objectStore = db.transaction("customers").objectStore("customers");
-
-            objectStore.getAll().onsuccess = function (event) {
-                customers = event.target.result;
-                //alert(customers.length);
-
-                showCustomers(customers);
-            };
+            showCustomers();
         };
         request.onupgradeneeded = function () {
             db = event.target.result;
@@ -39,7 +28,15 @@
 
     return me;
 
-    function showCustomers(customers) {
+    function showCustomers() {
+        //Load the data if available
+        var customers = [];
+
+        var objectStore = db.transaction("customers").objectStore("customers");
+
+        objectStore.getAll().onsuccess = function (event) {
+            customers = event.target.result;
+        };
         $("#customers").append(JSON.stringify(customers));
     }
 
@@ -47,7 +44,7 @@
         var transaction = db.transaction(["customers"], "readwrite");
 
         transaction.oncomplete = function (event) {
-            alert("All done!");
+            showCustomers();
         };
 
         transaction.onerror = function (event) {
@@ -63,7 +60,7 @@
 
         var request = objectStore.add(customer);
         request.onsuccess = function(event) {
-            alert(event.key);
+            
         }
     }
 
