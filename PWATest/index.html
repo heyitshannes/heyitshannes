@@ -37,20 +37,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <!-- SERVICE WORKER -->
-    <!--<script src="/node_modules/sw-toolbox/companion.js" data-service-worker="/Scripts/sw.js"></script>-->
     <script>
         if ("serviceWorker" in navigator) { 
             window.addEventListener("load", function() {   
                 navigator.serviceWorker.register("sw.js").then(
-                function(registration) { 
-                    // Registration was successful
-                    console.log("ServiceWorker registration successful with scope: ", registration.scope); }, 
-                function(err) { 
-                    // registration failed :( 
-                    console.log("ServiceWorker registration failed: ", err); 
-                }); 
-        });
+                    function(registration) { 
+                        // Registration was successful
+                        console.log("ServiceWorker registration successful with scope: ", registration.scope); }, 
+                    function(err) { 
+                        // registration failed :( 
+                        console.log("ServiceWorker registration failed: ", err); 
+                    }); 
+            });
         }
+    </script>
+
+    <script src="Scripts/jquery-3.1.1.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/test.js"></script>
+    <script>
+        $(document).ready(function() {
+            test.init();
+        });
     </script>
 </head>
 <body>
@@ -65,5 +73,6 @@
     </div>
     <button class="btn" id="go">Go!</button>
 </div>
+<div id="customers"></div>
 </body>
 </html>

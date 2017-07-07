@@ -160,6 +160,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\test.js" />
     <Content Include="sw.js" />
     <Content Include="Web.config" />
   </ItemGroup>
