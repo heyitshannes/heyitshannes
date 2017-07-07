@@ -24,7 +24,7 @@
 //})(self);
 
 "use strict";
-importScripts("/node_modules/sw-toolbox/sw-toolbox.js");
+importScripts("node_modules/sw-toolbox/sw-toolbox.js");
 
 // Ensure that our service worker takes control of the page as soon as possible.
 //global.addEventListener("install", event => event.waitUntil(global.skipWaiting()));
@@ -32,7 +32,7 @@ importScripts("/node_modules/sw-toolbox/sw-toolbox.js");
 
 toolbox.options.debug = true;
 toolbox.precache([
-    "/index.html"
+    "index.html"
 ]);
-toolbox.router.get("/*", toolbox.cacheFirst);
+toolbox.router.get("*", toolbox.cacheFirst);
 //toolbox.router.get("/*", toolbox.networkFirst, { networkTimeoutSeconds: 5 });
