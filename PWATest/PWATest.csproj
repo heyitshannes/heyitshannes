@@ -70,6 +70,7 @@
     <Content Include="android-icon-192x192.png" />
     <Content Include="android-icon-36x36.png" />
     <Content Include="android-icon-48x48.png" />
+    <Content Include="android-icon-512x512.png" />
     <Content Include="android-icon-72x72.png" />
     <Content Include="android-icon-96x96.png" />
     <Content Include="apple-icon-114x114.png" />
