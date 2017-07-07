@@ -41,6 +41,6 @@
   "lang": "en-US",
   "name": "Test app",
   "short_name": "TestApp",
-  "start_url": "/",
+  "start_url": "index.html",
   "theme_color": "#ffffff"
 }
