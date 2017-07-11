@@ -4,40 +4,54 @@
     var db;
 
     me.init = function () {
+        showCustomers();
 
         $("#go").unbind().bind("click",
             function () {
                 saveText();
             });
 
-        //HANNES: Create/Open database
-        var request = window.indexedDB.open("MyTestDatabase", 1);
 
-        request.onerror = function (event) {
-            alert("Database error: " + event.target.errorCode);
-        };
-        request.onsuccess = function (event) {
-            db = event.target.result;
-            showCustomers();
-        };
-        request.onupgradeneeded = function () {
-            db = event.target.result;
-            var objectStore = db.createObjectStore("customers", { autoIncrement: true });
-        }
+    }
+
+    me.hierKomEk = function() {
+        alert("Hiers ek!");
     }
 
     return me;
 
     function showCustomers() {
-        //Load the data if available
         var customers = [];
+        var request = window.indexedDB.open("MyTestDatabase", 1);
 
-        var objectStore = db.transaction("customers").objectStore("customers");
+        with (request) {
+            onerror = function(event) {
+                alert("Database error: " + event.target.errorCode);
+            };
 
-        objectStore.getAll().onsuccess = function (event) {
-            customers = event.target.result;
-        };
-        $("#customers").append(JSON.stringify(customers));
+            onsuccess = function (event) {
+                db = event.target.result;
+
+                //Load the data if available
+                
+
+                var objectStore = db.transaction("customers").objectStore("customers");
+
+                objectStore.getAll().onsuccess = function (event) {
+                    $.each(event.target.result,
+                        function(index, item) {
+                            customers.push(JSON.parse(JSON.stringify(item)));
+                        });
+                    $("#customers").html(JSON.stringify(customers));
+                };
+                
+            };
+
+            onupgradeneeded = function (event) {
+                db = event.target.result;
+                var objectStore = db.createObjectStore("customers", { autoIncrement: true });
+            }
+        }
     }
 
     function saveText() {
@@ -59,8 +73,8 @@
         }
 
         var request = objectStore.add(customer);
-        request.onsuccess = function(event) {
-            
+        request.onsuccess = function (event) {
+
         }
     }
 
