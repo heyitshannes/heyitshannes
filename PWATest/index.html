@@ -36,45 +36,40 @@
     <meta name="msapplication-starturl" content="index.html">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <!-- SERVICE WORKER -->
-    <script>
-        //if ("serviceWorker" in navigator) { 
-        //    window.addEventListener("load", function() {   
-        //        navigator.serviceWorker.register("sw.js").then(
-        //            function(registration) { 
-        //                // Registration was successful
-        //                console.log("ServiceWorker registration successful with scope: ", registration.scope); }, 
-        //            function(err) { 
-        //                // registration failed :( 
-        //                console.log("ServiceWorker registration failed: ", err); 
-        //            }); 
-        //    });
-        //}
-
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker
-                .register('sw.js')
-                .then(registration => navigator.serviceWorker.ready.then(function(registration) {
-                    registration.sync.register('uploadData').then(function() {
-                        // registration succeeded
-                    }, function() {
-                        // registration failed
-                    });
-                }));
-        }
-    </script>
-
+    
     <script src="Scripts/jquery-3.1.1.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/test.js"></script>
+
+    <!-- SERVICE WORKER -->
+    <script>
+        if ("serviceWorker" in navigator) { 
+            window.addEventListener("load", function() {   
+                navigator.serviceWorker.register("sw.js").then(
+                    function(registration) { 
+                        // Registration was successful
+                        console.log("ServiceWorker registration successful with scope: ", registration.scope); }, 
+                    function(err) { 
+                        // registration failed :( 
+                        console.log("ServiceWorker registration failed: ", err); 
+                    }); 
+            });
+        }
+    </script>
+
+    
     <script>
         $(document).ready(function() {
             test.init();
+            
+            window.addEventListener('online', test.updateOnlineStatus);
+            window.addEventListener('offline', test.updateOnlineStatus);
         });
     </script>
 </head>
 <body>
 <div class="">
+    <div id="onlineStatus" class="hidden" style="backgroud: yellow;">Device currently offline!</div>
     <div class="form-group col-sm-12">
         <label for="text1">Text 1</label>
         <input class="form-control" id="text1"/>

@@ -14,8 +14,22 @@
 
     }
 
-    me.hierKomEk = function() {
-        alert("Hiers ek!");
+    me.updateOnlineStatus = function(event) {
+        if (navigator.onLine) {
+            // handle online status
+            console.log('online');
+
+            if (!$("#onlineStatus").hasClass("hidden")) {
+                $("#onlineStatus").addClass("hidden");
+            }
+        } else {
+            // handle offline status
+            console.log('offline');
+
+            if ($("#onlineStatus").hasClass("hidden")) {
+                $("#onlineStatus").removeClass("hidden");
+            }
+        }
     }
 
     return me;
