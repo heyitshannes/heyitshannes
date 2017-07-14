@@ -60,7 +60,7 @@
                         function(index, item) {
                             $("#customers").append("Name: " + item.Name + "<br />Age: " + item.Age + "<br />");
                             if (item.image) {
-                                $("#customers").append("<img src=\"" + item.image + "\" /><br />");
+                                $("#customers").append("<img src=\"" + item.image + "\" style=\"width: 100px;\" /><br />");
                             }
                         });
 
