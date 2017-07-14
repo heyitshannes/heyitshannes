@@ -69,36 +69,40 @@
     }
 
     function saveText() {
-        var transaction = db.transaction(["customers"], "readwrite");
+        getBase64(document.getElementById("photo").files[0],
+            function (base64) {
+                var transaction = db.transaction(["customers"], "readwrite");
 
-        transaction.oncomplete = function (event) {
-            showCustomers();
-        };
+                transaction.oncomplete = function (event) {
+                    showCustomers();
+                };
 
-        transaction.onerror = function (event) {
-            alert("ag poefies");
-        };
+                transaction.onerror = function (event) {
+                    alert("ag poefies");
+                };
 
-        var objectStore = transaction.objectStore("customers");
+                var objectStore = transaction.objectStore("customers");
 
-        var customer = {
-            name: $("#text1").val(),
-            age: $("#text2").val(),
-            image: getBase64($("#photo").files[0])
-        }
+                var customer = {
+                    name: $("#text1").val(),
+                    age: $("#text2").val(),
+                    image: base64
+                }
 
-        var request = objectStore.add(customer);
-        request.onsuccess = function (event) {
+                var request = objectStore.add(customer);
+                request.onsuccess = function (event) {
 
-        }
+                }
+            });
+
+        
     }
 
-    function getBase64(file) {
+    function getBase64(file, _callback) {
         var reader = new FileReader();
 
         reader.onload = function (readerEvt) {
-            return readerEvt.target.result;
-
+            _callback(readerEvt.target.result);
         };
         reader.onerror = function (error) {
             console.log('Error: ', error);
