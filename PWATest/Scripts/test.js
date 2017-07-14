@@ -58,9 +58,9 @@
                         });
                     $.each(customers,
                         function(index, item) {
-                            $("#customers").append("Name: " + item.Name + "<br />Age: " + item.Age + "<br />");
+                            $("#customers").append("Name: " + item.name + "<br />Age: " + item.age + "<br />");
                             if (item.image) {
-                                $("#customers").append("<img src=\"" + item.image + "\" style=\"width: 100px;\" /><br />");
+                                $("#customers").append("<img src=\"" + item.image + "\" style=\"width: 250px;\" /><br />");
                             }
                         });
 
