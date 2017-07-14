@@ -56,7 +56,14 @@
                         function (index, item) {
                             customers.push(JSON.parse(JSON.stringify(item)));
                         });
-                    $("#customers").html(JSON.stringify(customers));
+                    $.each(customers,
+                        function(index, item) {
+                            $("#customers").append("Name: " + item.Name + "<br />Age: " + item.Age + "<br />");
+                            if (item.image) {
+                                $("#customers").append("<img src=\"" + item.image + "\" /><br />");
+                            }
+                        });
+
                 };
 
             };
