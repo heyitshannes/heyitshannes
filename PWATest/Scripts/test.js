@@ -14,7 +14,7 @@
 
     }
 
-    me.updateOnlineStatus = function(event) {
+    me.updateOnlineStatus = function (event) {
         if (navigator.onLine) {
             // handle online status
             console.log('online');
@@ -39,7 +39,7 @@
         var request = window.indexedDB.open("MyTestDatabase", 1);
 
         with (request) {
-            onerror = function(event) {
+            onerror = function (event) {
                 alert("Database error: " + event.target.errorCode);
             };
 
@@ -47,18 +47,18 @@
                 db = event.target.result;
 
                 //Load the data if available
-                
+
 
                 var objectStore = db.transaction("customers").objectStore("customers");
 
                 objectStore.getAll().onsuccess = function (event) {
                     $.each(event.target.result,
-                        function(index, item) {
+                        function (index, item) {
                             customers.push(JSON.parse(JSON.stringify(item)));
                         });
                     $("#customers").html(JSON.stringify(customers));
                 };
-                
+
             };
 
             onupgradeneeded = function (event) {
@@ -83,13 +83,28 @@
 
         var customer = {
             name: $("#text1").val(),
-            age: $("#text2").val()
+            age: $("#text2").val(),
+            image: getBase64($("#photo").files[0])
         }
 
         var request = objectStore.add(customer);
         request.onsuccess = function (event) {
 
         }
+    }
+
+    function getBase64(file) {
+        var reader = new FileReader();
+
+        reader.onload = function (readerEvt) {
+            return readerEvt.target.result;
+
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+
+        reader.readAsDataURL(file);
     }
 
 })(window, jQuery);
