@@ -11,7 +11,10 @@
                 saveText();
             });
 
-
+        $("#clear").unbind().bind("click",
+            function () {
+                clearDb();
+            });
     }
 
     me.updateOnlineStatus = function (event) {
@@ -117,6 +120,11 @@
         };
 
         reader.readAsDataURL(file);
+    }
+
+    function clearDb() {
+        window.indexedDB.deleteDatabase("MyTestDatabase");
+        showCustomers();
     }
 
 })(window, jQuery);
