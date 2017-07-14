@@ -62,7 +62,23 @@
         $(document).ready(function () {
             test.updateOnlineStatus();
             test.init();
+
+            var x = document.getElementById("gps");
             
+            function getLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                } else {
+                    x.innerHTML = "Geolocation is not supported by this browser.";
+                }
+            }
+            function showPosition(position) {
+                x.innerHTML = "Latitude: " + position.coords.latitude +
+                    "<br>Longitude: " + position.coords.longitude;
+            }
+
+            getLocation();
+
             window.addEventListener('online', test.updateOnlineStatus);
             window.addEventListener('offline', test.updateOnlineStatus);
         });
@@ -71,6 +87,7 @@
 <body>
 <div class="">
     <div id="onlineStatus" class="hidden" style="background-color: yellow;">Device currently offline!</div>
+    <div id="gps"></div>
     <div class="form-group col-sm-12">
         <label for="text1">Text 1</label>
         <input class="form-control" id="text1"/>
