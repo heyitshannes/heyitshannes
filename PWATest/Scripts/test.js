@@ -56,6 +56,7 @@
                         function (index, item) {
                             customers.push(JSON.parse(JSON.stringify(item)));
                         });
+                    $("#customers").html("");
                     $.each(customers,
                         function(index, item) {
                             $("#customers").append("Name: " + item.name + "<br />Age: " + item.age + "<br />");
